@@ -12,19 +12,19 @@ Telecom companies generate massive amounts of **Call Data Records (CDRs)** from 
 
 ### **How the Project Works**
 
-1. **CDR Ingestion Pipeline (`ingestion.py`)**
+1. **CDR Ingestion Pipeline (`TransactionStreamIngestor.py`)**
    - Reads real-time CDR data from Kafka (`cdr_raw_topic`).
    - Cleans and validates records (e.g., removing incomplete or duplicate CDRs).
    - Stores cleaned CDR data into HBase via Phoenix.
    - Publishes an event message (`call_id`, `timestamp`) to another Kafka queue (`cdr_events_topic`).
-2. **CDR Processing & Analysis Pipeline (`transform.py`)**
+2. **CDR Processing & Analysis Pipeline (`TransformedEventPublisher.py`)**
    - Reads CDR event messages from Kafka.
    - Fetches full CDR details from HBase.
    - Performs **fraud detection** (e.g., SIM-box fraud, unusual call spikes).
    - Computes **real-time billing charges** based on call duration and tariff plans.
    - Joins with customer profiles to track usage trends.
    - Publishes **billing and fraud alert events** to Kafka (`billing_events_topic`, `fraud_alerts_topic`).
-3. **Final Storage & Reporting Pipeline (`load.py`)**
+3. **Final Storage & Reporting Pipeline (`DataPersister.py`)**
    - Reads `billing_events_topic` and `fraud_alerts_topic` from Kafka.
    - Stores final processed billing and fraud data into HBase (`cdr_billing_table`, `cdr_fraud_table`).
    - Sends real-time fraud alerts to monitoring systems.
