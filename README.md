@@ -8,6 +8,8 @@ This project is designed for providing a base structure, not for a completed pip
 
 Telecom companies generate massive amounts of **Call Data Records (CDRs)** from phone calls, SMS, and internet usage. These records need to be processed in real time for **billing, fraud detection, and network optimization**. This project enables a **real-time streaming pipeline** to process, analyze, and store CDR data for better telecom operations.
 
+![Stream Line Processing Overview](https://github.com/user-attachments/assets/6d6072e1-5d06-447f-b587-4ebcbd7543bc)
+
 ---
 
 ### **How the Project Works**
@@ -28,6 +30,8 @@ Telecom companies generate massive amounts of **Call Data Records (CDRs)** from 
    - Reads `billing_events_topic` and `fraud_alerts_topic` from Kafka.
    - Stores final processed billing and fraud data into HBase (`cdr_billing_table`, `cdr_fraud_table`).
    - Sends real-time fraud alerts to monitoring systems.
+
+![Stream Line Processing Overview (Detailed)](https://github.com/user-attachments/assets/ad3b3160-e691-43fe-b125-015af2572081)
 
 ---
 
